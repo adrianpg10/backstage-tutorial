@@ -2,11 +2,15 @@ apiVersion: backstage.io/v1
 kind: ScaffolderTemplate
 metadata:
   name: spring-boot
-  title: Spring Boot Application
-  description: Generate a Spring Boot application
-  icon: https://example.com/spring-boot-icon.png
+  title: Spring Boot Application Template
+  description: This template generates a Spring Boot application.
+  icon: https://example.com/real-spring-boot-icon.png
 spec:
   owner: adrian.perez.gomez@accenture.com
+  parameters:
+    - name: projectName
+      description: The name of the Spring Boot application project
+      type: string
   steps:
     - id: createProject
       name: Create Spring Boot Project
@@ -14,10 +18,10 @@ spec:
       action:
         bash:
           code: |
-            # Run a script or command to create the Spring Boot project
-            curl -s https://start.spring.io/starter.zip -o my-spring-boot-app.zip
-            unzip my-spring-boot-app.zip -d my-spring-boot-app
-            cd my-spring-boot-app
+            # Create a Spring Boot project
+            curl -s https://start.spring.io/starter.zip -o {{projectName}}.zip
+            unzip {{projectName}}.zip -d {{projectName}}
+            cd {{projectName}}
             # Customize the project as needed
     - id: initializeGit
       name: Initialize Git
@@ -31,6 +35,6 @@ spec:
       action:
         bash:
           code: |
-            # Run a script or command to install project dependencies
-            cd my-spring-boot-app
+            # Install project dependencies
+            cd {{projectName}}
             ./mvnw clean install
