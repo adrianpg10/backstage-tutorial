@@ -7,6 +7,8 @@ metadata:
 spec:
   displayName: adrian
   email: adrian.perez.gomez@accenture.com
+  memberOf:
+    - adrian
  
 ---
  
