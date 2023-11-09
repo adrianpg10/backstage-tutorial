@@ -1,40 +1,36 @@
 apiVersion: backstage.io/v1
 kind: Template
 metadata:
-  name: spring-boot
-  title: Spring Boot Application Template
-  description: This template generates a Spring Boot application.
-  icon: https://example.com/real-spring-boot-icon.png
+  name: simple-spring-boot-app
+  description: Template for generating a simple Spring Boot application
 spec:
-  owner: adrian.perez.gomez@accenture.com
-  parameters:
-    - name: projectName
-      description: The name of the Spring Boot application project
-      type: string
-  steps:
-    - id: createProject
-      name: Create Spring Boot Project
-      description: Create a new Spring Boot project
-      action:
-        bash:
-          code: |
-            # Create a Spring Boot project
-            curl -s https://start.spring.io/starter.zip -o {{projectName}}.zip
-            unzip {{projectName}}.zip -d {{projectName}}
-            cd {{projectName}}
-            # Customize the project as needed
-    - id: initializeGit
-      name: Initialize Git
-      description: Initialize a Git repository
-      action:
-        git:
-          initialize: {}
-    - id: installDependencies
-      name: Install Dependencies
-      description: Install project dependencies
-      action:
-        bash:
-          code: |
-            # Install project dependencies
-            cd {{projectName}}
-            ./mvnw clean install
+  type: service
+  path: templates/simple-spring-boot-app
+  owner: adrian.parez.gomez@example.com
+  schema:
+    properties:
+      groupId:
+        type: string
+        title: Group ID
+        default: com.example
+      artifactId:
+        type: string
+        title: Artifact ID
+      version:
+        type: string
+        title: Version
+        default: 0.0.1-SNAPSHOT
+
+  operations:
+    - id: generate
+      description: Generate a simple Spring Boot application
+      steps:
+        - id: create-project
+          name: Create Spring Boot project
+          action: exec
+          input:
+            command: curl https://start.spring.io/starter.zip -o app.zip && unzip -q app.zip -d $WORKSPACE && mv $WORKSPACE/*/* $WORKSPACE/
+          conditions: []
+
+  template:
+    type: static
