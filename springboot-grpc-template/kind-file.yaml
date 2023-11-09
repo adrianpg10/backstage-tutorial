@@ -21,4 +21,4 @@ spec:
   description: Grupo de desarrolladores
   email: adrian.perez.gomez@accenture.com
   children:
-    - member: adrian
+    - adrian
