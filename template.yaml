@@ -6,7 +6,7 @@ metadata:
 spec:
   type: service
   path: templates/simple-spring-boot-app
-  owner: adrian.parez.gomez@example.com
+  owner: your-team@example.com
   schema:
     properties:
       groupId:
@@ -27,10 +27,13 @@ spec:
       steps:
         - id: create-project
           name: Create Spring Boot project
-          action: exec
+          action: techdocs.builder/techdocs-static-site
           input:
-            command: curl https://start.spring.io/starter.zip -o app.zip && unzip -q app.zip -d $WORKSPACE && mv $WORKSPACE/*/* $WORKSPACE/
+            websiteDirectory: $WORKSPACE
+            targetDirectory: $WORKSPACE
           conditions: []
 
   template:
-    type: static
+    type: git
+    url: https://github.com/spring-io/initializr.git
+    path: templates/initial
