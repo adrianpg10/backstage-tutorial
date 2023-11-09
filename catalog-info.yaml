@@ -1,42 +1,44 @@
----
-# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-system
 apiVersion: backstage.io/v1alpha1
-kind: System
+kind: Template
 metadata:
-  name: backstage
+  name: springboot-grpc-service
+  description: Template for generating a Spring Boot gRPC microservice
 spec:
+  type: service
+  path: templates/springboot-grpc-service
   owner: adrian.perez.gomez@accenture.com
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: component-web-test1
-  description: Example1 added from the GitHub repo
-  annotations:
-    backstage.io/techdocs-ref: value
-spec:
-  type: website
-  lifecycle: integration
-  owner: adrian.perez.gomez@accenture.com
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: component-web-test3
-  description: Example1 added from the GitHub repo
-  annotations:
-    backstage.io/techdocs-ref: value
-spec:
-  type: website
-  lifecycle: integration
-  owner: adrian.perez.gomez@accenture.com
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: component-web-test2
-  description: Example2 added from the GitHub repo
-spec:
-  type: website
-  lifecycle: development
-  owner: adrian.perez.gomez@accenture.com
+  schema:
+    properties:
+      groupId:
+        type: string
+        title: Group ID
+        default: com.example
+      artifactId:
+        type: string
+        title: Artifact ID
+      version:
+        type: string
+        title: Version
+        default: 0.0.1-SNAPSHOT
+      javaPackage:
+        type: string
+        title: Java Package
+        default: com.example.grpc
+      description:
+        type: string
+        title: Description
+        default: A Spring Boot gRPC microservice
+
+  operations:
+    - id: generate
+      description: Generate a Spring Boot gRPC microservice
+      steps:
+        - id: create-project
+          name: Create Spring Boot gRPC project
+          action: exec
+          input:
+            command: curl https://start.spring.io/starter.zip -o app.zip && unzip -q app.zip -d $WORKSPACE && mv $WORKSPACE/*/* $WORKSPACE/
+          conditions: []
+
+  template:
+    type: static
