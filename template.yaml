@@ -1,11 +1,11 @@
-apiVersion: backstage.io/v1
+apiVersion: backstage.io/v1alpha1
 kind: Template
 metadata:
-  name: simple-spring-boot-app
-  description: Template for generating a simple Spring Boot application
+  name: springboot-grpc-service
+  description: Template for generating a Spring Boot gRPC microservice
 spec:
   type: service
-  path: templates/simple-spring-boot-app
+  path: templates/springboot-grpc-service
   owner: your-team@example.com
   schema:
     properties:
@@ -20,20 +20,25 @@ spec:
         type: string
         title: Version
         default: 0.0.1-SNAPSHOT
+      javaPackage:
+        type: string
+        title: Java Package
+        default: com.example.grpc
+      description:
+        type: string
+        title: Description
+        default: A Spring Boot gRPC microservice
 
   operations:
     - id: generate
-      description: Generate a simple Spring Boot application
+      description: Generate a Spring Boot gRPC microservice
       steps:
         - id: create-project
-          name: Create Spring Boot project
-          action: techdocs.builder/techdocs-static-site
+          name: Create Spring Boot gRPC project
+          action: exec
           input:
-            websiteDirectory: $WORKSPACE
-            targetDirectory: $WORKSPACE
+            command: curl https://start.spring.io/starter.zip -o app.zip && unzip -q app.zip -d $WORKSPACE && mv $WORKSPACE/*/* $WORKSPACE/
           conditions: []
 
   template:
-    type: git
-    url: https://github.com/spring-io/initializr.git
-    path: templates/initial
+    type: static
