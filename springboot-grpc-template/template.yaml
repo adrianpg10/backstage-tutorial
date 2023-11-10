@@ -9,7 +9,7 @@ metadata:
     - java
     - grpc
 spec:
-  owner: adrian.perez.gomez@accenture.com
+  owner: adrian.perez.gomez
   type: service
 
   parameters:
