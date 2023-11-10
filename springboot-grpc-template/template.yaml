@@ -11,6 +11,7 @@ metadata:
 spec:
   owner: adrian.perez.gomez
   type: service
+  group: adrian
 
   parameters:
     - title: Provide some simple information
