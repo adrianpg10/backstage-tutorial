@@ -11,6 +11,19 @@ spec:
     - adrian
  
 ---
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  namespace: adrian
+  name: adrian.perez.gomez@accenture.com
+spec:
+  displayName: adrian
+  email: adrian.perez.gomez@accenture.com
+  memberOf:
+    - adrian
+
+---
  
 # Group
 apiVersion: backstage.io/v1alpha1
